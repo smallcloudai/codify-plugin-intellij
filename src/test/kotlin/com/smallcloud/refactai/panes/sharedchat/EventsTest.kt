@@ -155,7 +155,7 @@ class EventsTest {
     }
 
     @Test
-    fun parseeAnimationStart() {
+    fun parseAnimationStart() {
         val message = """{"type": "ide/animateFile/start", "payload": "path/to/file.txt"}"""
         val expected = Events.Animation.Start("path/to/file.txt")
         val result = Events.parse(message)
@@ -172,5 +172,14 @@ class EventsTest {
         assertNotNull(result)
         assertEquals(expected.type, result?.type)
         assertEquals(expected.payload, result?.payload)
+    }
+
+    @Test
+    fun formatCurrentProjectPayload() {
+        val message = Events.CurrentProject.SetCurrentProject("foo")
+        val result = Events.stringify(message)
+        val expected = """{"type":"currentProjectInfo/setCurrentProjectInfo","payload":{"name":"foo"}}"""
+        assertEquals(expected, result)
+
     }
 }

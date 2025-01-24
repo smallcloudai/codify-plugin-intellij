@@ -53,6 +53,9 @@ class EventNames {
         @SerializedName("textarea/replace")
         CODE_LENS_EXEC("textarea/replace"),
         // logout, open external url, setup host
+        // Set current project for knowledge
+        @SerializedName("currentProjectInfo/setCurrentProjectInfo")
+        SET_CURRENT_PROJECT("currentProjectInfo/setCurrentProjectInfo")
     }
 }
 
@@ -412,6 +415,12 @@ class Events {
 
         class Update(payload: UpdatePayload) : ToChat<Payload>(EventNames.ToChat.UPDATE_CONFIG, payload)
 
+    }
+
+    class CurrentProject {
+        data class SetCurrentProjectPayload(val name: String = ""): Payload()
+
+        class SetCurrentProject(name: String) : ToChat<Payload>(EventNames.ToChat.SET_CURRENT_PROJECT, SetCurrentProjectPayload(name))
     }
 
     companion object {
